@@ -5,6 +5,8 @@ const render = require('koa-art-template');
 const static = require('koa-static');
 const session = require('koa-session');
 const bodyParser = require('koa-bodyparser');
+const sd = require('silly-datetime');
+const jsonp = require('koa-jsonp');
 
 const app = new Koa();
 
@@ -12,7 +14,10 @@ const app = new Koa();
 render(app, {
     root: path.join(__dirname, 'views'),
     extname: '.html', //后缀名
-    debug: process.env.NODE_ENV !== 'production'
+    debug: process.env.NODE_ENV !== 'production',
+    dateFormat:dateFormat=function(value){
+        return sd.format(value, 'YYYY-MM-DD HH:mm');
+    } /*扩展模板里面的方法*/
 });
 
 //配置 静态资源的中间件
@@ -25,7 +30,7 @@ app.use(bodyParser());
 app.keys = ['some secret hurr'];
 const CONFIG = {
     key: 'koa:sess',
-    maxAge: 864000,
+    maxAge: 600000,
     overwrite: true,
     httpOnly: true,
     signed: true,
@@ -33,6 +38,9 @@ const CONFIG = {
     renew: false,
 };
 app.use(session(CONFIG, app));
+
+//配置jsonp 中间件
+app.use(jsonp());
 
 
 //引入路由模块
@@ -49,4 +57,4 @@ router.use(index);
 /*启动路由*/
 app.use(router.routes());
 app.use(router.allowedMethods());
-app.listen(8009);
+app.listen(8000);

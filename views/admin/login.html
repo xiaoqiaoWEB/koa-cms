@@ -13,6 +13,7 @@
 		<!-- fonts -->
 		<link rel="stylesheet" href="{{__HOST__}}/admin/css/ace.min.css" />
 		<link rel="stylesheet" href="{{__HOST__}}/admin/css/ace-rtl.min.css" />
+		<script src='{{__HOST__}}/admin/js/jquery-1.10.2.min.js'></script>
 
 		<style type="text/css">
 			.login-layout{
@@ -48,32 +49,31 @@
 										<div class="widget-main">
 
 											<h2 class="header blue lighter bigger center">
-												CMS内容管理系统
-
+												小乔CMS内容管理系统
 											</h2>
 
 											<div class="space-6"></div>
 
-											<form action="/admin/login/doLogin" method="post">
+											<form action="/admin/login/doLogin" method="post" id="userForm">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" name="username"/>
+															<input type="text" class="form-control" placeholder="用户名" name="username" id="username"/>
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" name="password"/>
+															<input type="password" class="form-control" placeholder="密码" name="password" id="password"/>
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="验证吗" style="width:200px;float:left;" />
-															<img style="float:right;" src="https://www.itying.com/koa/admin_express.php?m=Public&a=verify&rand=1521453067" alt="">
+															<input type="text" class="form-control" placeholder="验证吗" style="width:200px;float:left;" name="code" id="codeImg"/>
+															<img style="float:right;" src="{{__HOST__}}/admin/login/code" id="code">
 														</span>
 													</label>
 
@@ -111,7 +111,21 @@
 		</div><!-- /.main-container -->
 
 		<!-- basic scripts -->
+		<script>
+			$('#code').on('click',function(){
+			   $(this).attr('src','{{__HOST__}}/admin/login/code?t=' + Math.random())
+			})
 
+			//前端进行验证
+			// $('#userForm').submit(function(){
+			// 	if($('#username').val()=='' || $("#password").val()=='' || $("#codeImg").val()){
+			//
+			// 		alert('用户名或者密码或者验证码不能为空')
+			// 		return false;
+			// 	}
+			// 	return true;
+			// })
+		</script>
 
 </body>
 </html>
