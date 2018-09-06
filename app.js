@@ -30,7 +30,7 @@ app.use(bodyParser());
 app.keys = ['some secret hurr'];
 const CONFIG = {
     key: 'koa:sess',
-    maxAge: 600000,
+    maxAge: 1000*60*60,
     overwrite: true,
     httpOnly: true,
     signed: true,

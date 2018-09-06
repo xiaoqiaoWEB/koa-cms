@@ -5,6 +5,7 @@ let login = require('./admin/login.js');
 let index = require('./admin/index.js');
 let user = require('./admin/user.js');
 let mange = require('./admin/mange.js');
+let articlecate = require('./admin/articlecate.js');
 
 router.use(async (ctx,next)=>{
     ctx.state.__HOST__ = "http://" + ctx.request.header.host;
@@ -13,7 +14,8 @@ router.use(async (ctx,next)=>{
 
     ctx.state.G = {
         userInfo:ctx.session.userInfo,
-        url:pathName.substring(1).split('/')
+        url:pathName.substring(1).split('/'),
+        prevPage:ctx.request.headers['referer']   //上一页
     }
 
 
@@ -38,9 +40,10 @@ router.get('/',async (ctx)=>{
     await ctx.render('admin/index.html')
 })
 
+router.use(index);
 router.use('/login',login);
 router.use('/user',user);
 router.use('/mange',mange);
-router.use(index);
+router.use('/articlecate',articlecate);
 
 module.exports =router.routes();

@@ -2,8 +2,12 @@
 /**
  * Created by Administrator on 2018/3/24 0024.
  */
-var app={
 
+$(function(){
+    app.deleta();
+})
+
+var app={
 
     toggle:function(el,collectionName,attr,id){
         $.get('/admin/changeStatus',{collectionName:collectionName,attr:attr,id:id},function(data) {
@@ -16,5 +20,12 @@ var app={
             }
         })
 
+    },
+    deleta(){
+        $('.delete').on('click',function(){
+            var flag = confirm('确定删除');
+            return flag;
+        })
     }
+
 }
