@@ -4,7 +4,7 @@ const tools = require('../../model/tools.js');
 
 router.get('/',async (ctx)=>{
 
-    let result = await DB.find('articlecate.js',{});
+    let result = await DB.find('articlecate',{});
 
     let data = tools.changeData(result);
 
@@ -18,7 +18,7 @@ router.get('/',async (ctx)=>{
 router.get('/add',async (ctx)=>{
 
     //获得一级分类名称
-    let list = await DB.find('articlecate.js',{"pid":"0"});
+    let list = await DB.find('articlecate',{"pid":"0"});
 
     await ctx.render('admin/articlecate/add.html',{list})
 
@@ -28,21 +28,26 @@ router.get('/add',async (ctx)=>{
 
 router.post('/doAdd',async (ctx)=>{
    let data = ctx.request.body;
+   //console.log(data)
 
-   let result = await DB.insert('articlecate.js',data);
+   let result = await DB.insert('articlecate',data);
 
-    ctx.redirect(ctx.state.__HOST__+'/admin/articlecate');
+   //console.log(result)
+
+   ctx.redirect(ctx.state.__HOST__+'/admin/articlecate');
 
 })
+
+
 
 //修改列表
 router.get('/edit',async (ctx)=>{
 
     let id = ctx.query.id;
 
-    let result = await DB.find('articlecate.js',{"_id":DB.getObjectId(id)});
+    let result = await DB.find('articlecate',{"_id":DB.getObjectId(id)});
 
-    let articlecate = await DB.find('articlecate.js',{"pid":"0"});
+    let articlecate = await DB.find('articlecate',{"pid":"0"});
     console.log(articlecate)
 
     await ctx.render('admin/articlecate/edit.html',{
@@ -61,7 +66,7 @@ router.post('/doEdit',async (ctx)=>{
     var status=editData.status;
     var description=editData.description;
 
-    var result=await DB.update('articlecate.js',{'_id':DB.getObjectId(id)},{
+    var result=await DB.update('articlecate',{'_id':DB.getObjectId(id)},{
         title,pid,keywords,status,description
     });
 

@@ -6,6 +6,10 @@ let index = require('./admin/index.js');
 let user = require('./admin/user.js');
 let mange = require('./admin/mange.js');
 let articlecate = require('./admin/articlecate.js');
+let article = require('./admin/article.js');
+
+//富文本
+let ueditor = require('koa2-ueditor');
 
 router.use(async (ctx,next)=>{
     ctx.state.__HOST__ = "http://" + ctx.request.header.host;
@@ -45,5 +49,12 @@ router.use('/login',login);
 router.use('/user',user);
 router.use('/mange',mange);
 router.use('/articlecate',articlecate);
+router.use('/article',article);
+
+//上传图片的路由   ueditor.config.js配置图片post的地址
+router.all('/editorUpload', ueditor(['public', {
+    "imageAllowFiles": [".png", ".jpg", ".jpeg"],
+    "imagePathFormat": "/upload/ueditor/image/{yyyy}{mm}{dd}/{filename}"  // 保存为原文件名
+}]))
 
 module.exports =router.routes();

@@ -51,14 +51,30 @@ class Db{
 
     }
 
-    find(collectionName,json){
+    find(collectionName,json1,json2,json3){
+        if(arguments.length==2){
+            var attr={};
+            var slipNum=0;
+            var pageSize=0;
+
+        }else if(arguments.length==3){
+            var attr=json2;
+            var slipNum=0;
+            var pageSize=0;
+        }else if(arguments.length==4){
+            var attr=json2;
+            var page=json3.page ||1;
+            var pageSize=json3.pageSize||20;
+            var slipNum=(page-1)*pageSize;
+        }else{
+            console.log('����������')
+        }
 
         return new Promise((resolve,reject)=>{
 
             this.connect().then((db)=>{
-
-                var result=db.collection(collectionName).find(json);
-
+                //var result=db.collection(collectionName).find(json);
+                var result =db.collection(collectionName).find(json1,{fields:attr}).skip(slipNum).limit(pageSize);
                 result.toArray(function(err,docs){
 
                     if(err){
@@ -71,6 +87,7 @@ class Db{
             })
         })
     }
+
     update(collectionName,json1,json2){
         return new Promise((resolve,reject)=>{
 
@@ -132,6 +149,21 @@ class Db{
     getObjectId(id){
 
         return new ObjectID(id);
+    }
+    count(collectionName,json){
+
+        return new  Promise((resolve,reject)=> {
+            this.connect().then((db)=> {
+
+                var result = db.collection(collectionName).count(json);
+                result.then(function (count) {
+
+                        resolve(count);
+                    }
+                )
+            })
+        })
+
     }
 }
 

@@ -81,9 +81,9 @@
 
                             <td class="center">
                                 {{if $value.status==1}}
-                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'articlecate.js','status','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'articlecate','status','{{@$value._id}}')" />
                                 {{else}}
-                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'articlecate.js','status','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'articlecate','status','{{@$value._id}}')" />
                                 {{/if}}
                             </td>
 
@@ -98,7 +98,7 @@
                                         </button>
                                     </a>
 
-                                    <a href="{{__HOST__}}/admin/remove?collection=articlecate.js&id={{@$value._id}}" class="delete">
+                                    <a href="{{__HOST__}}/admin/remove?collection=articlecate&id={{@$value._id}}" class="delete">
 
 
                                         <button class="btn btn-xs btn-danger">
@@ -122,9 +122,9 @@
 
                             <td class="center" >
                                 {{if $value.status==1}}
-                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'articlecate.js','status','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'articlecate','status','{{@$value._id}}')" />
                                 {{else}}
-                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'articlecate.js','status','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'articlecate','status','{{@$value._id}}')" />
                                 {{/if}}
                             </td>
 
@@ -139,7 +139,7 @@
                                         </button>
                                     </a>
 
-                                    <a href="{{__HOST__}}/admin/remove?collection=articlecate.js&id={{@$value._id}}" class="delete">
+                                    <a href="{{__HOST__}}/admin/remove?collection=articlecate&id={{@$value._id}}" class="delete">
 
                                         <button class="btn btn-xs btn-danger">
                                             <i class="icon-trash bigger-120"></i>
