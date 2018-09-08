@@ -55,6 +55,24 @@ router.get('/remove',async (ctx)=>{
 
 })
 
+//改变排序
+router.get('/changeSort',async (ctx) => {
+    var collectionName=ctx.query.collectionName; /*数据库表*/
+    var sortValue=ctx.query.sortValue; /*属性*/
+    var id=ctx.query.id;   /*更新的 id*/
+
+    var json = {
+        sort:sortValue
+    }
+
+    let result = await DB.update(collectionName,{"_id":DB.getObjectId(id)},json);
+
+    if(result){
+        ctx.body={"message":'更新成功',"success":true};
+    }else{
+        ctx.body={"message":"更新失败","success":false}
+    }
+})
 
 
 module.exports =router.routes();

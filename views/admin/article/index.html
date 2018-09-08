@@ -66,9 +66,10 @@
                                 发布时间
                             </th>
                             <th width="20px;" class="center">排序</th>
-                            <th width="60px;" class="center">热门</th>
-                            <th width="60px;" class="center">推荐</th>
                             <th width="60px;" class="center">状态</th>
+                            <th width="60px;" class="center">精品</th>
+                            <th width="60px;" class="center">热销</th>
+                            <th width="60px;" class="center">新品</th>
                             <th width="100px;" class="center">操作</th>
                         </tr>
                     </thead>
@@ -85,17 +86,28 @@
                             </td>
 
                             <td>
-                                2018-8-18
+                                {{if $value.add_time}}
+                                    {{$value.add_time | dateFormat}}
+                                {{/if}}
                             </td>
                             <td>
-                                <input type="text" value="{{$value.sort || 0}}" class="sort_input" style="width: 40px;"/>
+                                <input type="text" value="{{$value.sort || 0}}" class="sort_input" style="width: 40px;" onblur="app.changeSort(this,'article','{{@$value._id}}')" />
                             </td>
 
                             <td>
                                 {{if $value.is_host==1}}
-                                <img src="{{__ROOT__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','is_host','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','status','{{@$value._id}}')" />
                                 {{else}}
-                                <img src="{{__ROOT__}}/admin/images/no.gif" onclick="app.toggle(this,'article','is_host','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'article','status','{{@$value._id}}')" />
+                                {{/if}}
+
+                            </td>
+
+                            <td>
+                                {{if $value.is_host==1}}
+                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','is_host','{{@$value._id}}')" />
+                                {{else}}
+                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'article','is_host','{{@$value._id}}')" />
                                 {{/if}}
 
                             </td>
@@ -103,9 +115,9 @@
                             <td>
 
                                 {{if $value.is_best==1}}
-                                <img src="{{__ROOT__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','is_best','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','is_best','{{@$value._id}}')" />
                                 {{else}}
-                                <img src="{{__ROOT__}}/admin/images/no.gif" onclick="app.toggle(this,'article','is_best','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'article','is_best','{{@$value._id}}')" />
                                 {{/if}}
 
                             </td>
@@ -113,20 +125,20 @@
                             <td>
 
                                 {{if $value.status==1}}
-                                <img src="{{__ROOT__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','status','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','is_new','{{@$value._id}}')" />
                                 {{else}}
-                                <img src="{{__ROOT__}}/admin/images/no.gif" onclick="app.toggle(this,'article','status','{{@$value._id}}')" />
+                                <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'article','is_new','{{@$value._id}}')" />
                                 {{/if}}
 
                             </td>
                             <td>
-                                <a href="{{__ROOT__}}/admin/article/edit?id={{@$value._id}}">
+                                <a href="{{__HOST__}}/admin/article/edit?id={{@$value._id}}">
                                     <button class="btn btn-xs btn-info">
                                         <i class="icon-edit bigger-120"></i>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a class="delete" href="{{__ROOT__}}/admin/remove?collection=article&id={{@$value._id}}">
+                                <a class="delete" href="{{__HOST__}}/admin/remove?collection=article&id={{@$value._id}}">
                                     <button class="btn btn-xs btn-danger">
                                         <i class="icon-trash bigger-120"></i>
                                     </button>
@@ -156,15 +168,15 @@
 <script>
     $('#page').jqPaginator({
         totalPages: {{totalPages}},
-    visiblePages: 8,
+        visiblePages: 8,
         currentPage: {{page}},
-    onPageChange: function (num, type) {
+        onPageChange: function (num, type) {
         console.log(num, type);
-//
-        if(type=='change'){
-            location.href="{{__HOST__}}/admin/article?page="+num;
+
+            if(type=='change'){
+                location.href="{{__HOST__}}/admin/article?page="+num;
+            }
         }
-    }
     });
 
 </script>

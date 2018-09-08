@@ -22,6 +22,7 @@ render(app, {
 
 //配置 静态资源的中间件
 app.use(static(__dirname + '/public'));
+//app.use(static('.'));
 
 //配置post提交数据的中间件
 app.use(bodyParser());

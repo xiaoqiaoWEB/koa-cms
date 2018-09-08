@@ -78,7 +78,10 @@ router.get('/',async (ctx)=>{
     var count= await  DB.count('article',{});
     var result=await DB.find('article',{},{},{
         page:page,
-        pageSize:pageSize
+        pageSize:pageSize,
+        sortJson:{
+            'add_time':-1
+        }
     });
 
 
@@ -91,15 +94,13 @@ router.get('/',async (ctx)=>{
 })
 
 
-
-
 router.get('/add',async (ctx)=>{
 
     //查询分类数据
 
     var catelist=await DB.find('articlecate',{});
 
-    console.log(tools.changeData(catelist));
+    //console.log(tools.changeData(catelist));
 
     await  ctx.render('admin/article/add',{
 
@@ -128,11 +129,14 @@ router.post('/doAdd', upload.single('img_url'),async (ctx)=>{
     let keywords=ctx.req.body.keywords;
     let description=ctx.req.body.description || '';
     let content=ctx.req.body.content ||'';
-    let img_url=ctx.req.file? ctx.req.file.path :'';
+    let img_url=ctx.req.file? ctx.req.file.path.substring(7) :'';
+    let add_time = new Date();
+    let sort = 0;
+
 
     //属性的简写
     let json={
-        pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content,img_url
+        pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content,img_url,add_time
     }
 
     var result=DB.insert('article',json);
@@ -143,7 +147,69 @@ router.post('/doAdd', upload.single('img_url'),async (ctx)=>{
 })
 
 //编辑内容
+router.get('/edit',async (ctx)=>{
 
+    let id = ctx.query.id;
+
+    //分类
+    var catelist=await DB.find('articlecate',{});
+
+    //找到要编辑的数据
+    var articleList = await DB.find('article',{"_id":DB.getObjectId(id)});
+
+    await  ctx.render('admin/article/edit',{
+        catelist:tools.changeData(catelist),
+        list:articleList[0],
+        prevPage :ctx.state.G.prevPage   /*保存上一页的值*/
+    });
+
+})
+
+
+router.post('/doEdit', upload.single('img_url'),async (ctx)=>{
+
+    let prevPage=ctx.req.body.prevPage || '';  /*上一页的地址*/
+    let id=ctx.req.body.id;
+    let pid=ctx.req.body.pid;
+    let catename=ctx.req.body.catename.trim();
+    let title=ctx.req.body.title.trim();
+    let author=ctx.req.body.author.trim();
+    let pic=ctx.req.body.author;
+    let status=ctx.req.body.status;
+    let is_best=ctx.req.body.is_best;
+    let is_hot=ctx.req.body.is_hot;
+    let is_new=ctx.req.body.is_new;
+    let keywords=ctx.req.body.keywords;
+    let description=ctx.req.body.description || '';
+    let content=ctx.req.body.content ||'';
+
+    let img_url=ctx.req.file? ctx.req.file.path.substring(7) :'';
+    let add_time = new Date();
+
+    //属性的简写
+    //注意是否修改了图片  valet块作用域
+    if(img_url){
+        var json={
+            pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content,img_url,add_time
+        }
+    }else{
+        var json={
+            pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content,add_time
+        }
+    }
+
+    DB.update('article',{"_id":DB.getObjectId(id)},json);
+
+
+    //跳转
+    if(prevPage){
+        ctx.redirect(prevPage);
+
+    }else{
+        ctx.redirect(ctx.state.__HOST__+'/admin/article');
+    }
+
+})
 
 
 
