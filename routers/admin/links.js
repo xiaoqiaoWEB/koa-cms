@@ -17,74 +17,71 @@ var storage = multer.diskStorage({
 })
 var upload = multer({ storage: storage });
 
-
 router.get('/',async (ctx)=>{
-    //获得轮播图列表
-    var result = await DB.find('focus',{});
 
-    await ctx.render('admin/focus/index.html',{
-        list:result
+    var result = await DB.find('links',{},{},{
+        sortJson:{
+            "add_time":1
+        }
     })
+
+    await ctx.render('admin/links/list',{
+        list:result
+    });
 })
 
 router.get('/add',async (ctx)=>{
-
-    await ctx.render('admin/focus/add.html')
+    ctx.render('admin/links/add.html')
 })
 
-//接收 图片
-router.post('/doAdd',upload.single('pic'),async (ctx)=>{
-
+router.post('/doAdd',upload.single('link_log'),async (ctx)=>{
 
     var title=ctx.req.body.title;
-
-    let pic=ctx.req.file? ctx.req.file.path.substr(7) :'';
-
+    let link_log=ctx.req.file? ctx.req.file.path.substr(7) :'';
     var url=ctx.req.body.url;
-
     var sort=ctx.req.body.sort;
-
     var status=ctx.req.body.status;
-
     var add_time=new Date();
 
-
-    await  DB.insert('focus',{
-        title,pic,url,sort,status,add_time
+    await  DB.insert('links',{
+        title,link_log,url,sort,status,add_time
     })
 
     //跳转
-    ctx.redirect(ctx.state.__HOST__+'/admin/focus');
-
+    ctx.redirect(ctx.state.__HOST__+'/admin/links');
 })
 
 
-//编辑
 router.get('/edit',async (ctx)=>{
-    let id = ctx.query.id;
-    let result = await DB.find('focus',{"_id":DB.getObjectId(id)});
 
-    await ctx.render('admin/focus/edit.html',{
-        list:result[0],
-        prevPage:ctx.state.G.prevPage
+    var id = ctx.query.id;
+    var result = await DB.find('links',{"_id":DB.getObjectId(id)});
+
+    console.log(result)
+
+    await ctx.render('admin/links/edit.html',{
+        list:result[0]
     })
+
 })
 
-router.post('/doEdit',upload.single('pic'),async (ctx)=>{
+//执行编辑数据
+router.post('/doEdit',upload.single('link_log'),async (ctx)=>{
+
     var id=ctx.req.body.id;
     var title=ctx.req.body.title;
-    let pic=ctx.req.file? ctx.req.file.path.substr(7) :'';
+    let link_log=ctx.req.file? ctx.req.file.path.substr(7) :'';
     var url=ctx.req.body.url;
     var sort=ctx.req.body.sort;
     var status=ctx.req.body.status;
-    var add_time=new Date();
+    var add_time= new Date();
     var prevPage=ctx.req.body.prevPage;
 
-    if(pic){
+    if(link_log){
 
         var json={
 
-            title,pic,url,sort,status,add_time
+            title,link_log,url,sort,status,add_time
         }
     }else{
         var json={
@@ -93,16 +90,18 @@ router.post('/doEdit',upload.single('pic'),async (ctx)=>{
         }
 
     }
+    await  DB.update('links',{'_id':DB.getObjectId(id)},json);
 
-    await  DB.update('focus',{'_id':DB.getObjectId(id)},json);
 
     if(prevPage){
         ctx.redirect(prevPage);
     }else{
         //跳转
-        ctx.redirect(ctx.state.__HOST__+'/admin/focus');
+        ctx.redirect(ctx.state.__HOST__+'/admin/links');
+
     }
 
 })
+
 
 module.exports=router.routes();
