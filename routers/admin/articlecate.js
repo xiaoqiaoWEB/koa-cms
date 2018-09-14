@@ -27,12 +27,14 @@ router.get('/add',async (ctx)=>{
 })
 
 router.post('/doAdd',async (ctx)=>{
+
    let data = ctx.request.body;
-   //console.log(data)
+
+   console.log(data)
 
    let result = await DB.insert('articlecate',data);
 
-   //console.log(result)
+   console.log(result)
 
    ctx.redirect(ctx.state.__HOST__+'/admin/articlecate');
 

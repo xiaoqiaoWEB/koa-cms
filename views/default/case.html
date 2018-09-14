@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>成功案例</title>
+<title>heder_nav-menu</title>
+<link rel="stylesheet" type="text/css" href="static/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="static/css/common.css" />
+<link rel="stylesheet" type="text/css" href="static/css/heder_nav-menu.css"/>
+<link rel="stylesheet" type="text/css" href="static/css/successful_case.css"/>
+	<link rel="stylesheet" type="text/css" href="static/css/page.css"/>
+</head>
+
+<body>
+{{include 'default/header.html'}}
+<div id="header_nav-wrapper">
+    <div class="header_nav">
+    	<h2>成功案例 &#160; <span>用心给客户书写出一次次满意的答卷，创造有价值的产品
+APP开发</span></h2>
+
+
+    </div>
+
+
+</div>
+
+<div id="header_title-wrapper">
+
+    <div class="header_title clear">
+        <p>
+			{{each subCaseList}}
+        	<a href="/case?pid={{@$value._id}}">{{$value.title}}</a>
+			{{/each}}
+        </p>
+    </div>
+
+
+</div>
+
+<div id="main_wrapper">
+    <div class="main">
+	    <ul class="clear">
+			{{each allCalseList}}
+		    <li>
+		    		<a href="/content/{{@$value._id}}"><img src="{{__HOST__}}/{{$value.img_url}}" /></a>
+		    		<p>{{$value.title}}</p>
+		    </li>
+			{{/each}}
+	    </ul>
+    </div>
+	<div class="clear" style="width: 1140px; margin: 0 auto">
+		<ul id="page" class="pagination" style="float: right"></ul>
+	</div>
+
+</div>
+
+
+
+{{include 'default/footer.html'}}
+
+
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/jqPaginator.js"></script>
+
+<script>
+    $('#page').jqPaginator({
+        totalPages: {{totalPages}},
+    	visiblePages: 5,
+        currentPage: {{page}},
+    	onPageChange: function (num, type) {
+
+        if(type=='change'){
+				{{if pid}}
+					location.href="/case?pid={{pid}}&page="+num;
+				{{else}}
+            		location.href="/case?page="+num;
+				{{/if}}
+            }
+        }
+    });
+</script>
+
+
+
+</body>
+</html>

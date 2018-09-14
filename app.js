@@ -7,8 +7,13 @@ const session = require('koa-session');
 const bodyParser = require('koa-bodyparser');
 const sd = require('silly-datetime');
 const jsonp = require('koa-jsonp');
+//cors = require('koa2-cors');  //实现跨域请求
 
 const app = new Koa();
+
+
+//配置后台允许跨域    允许跨域安全性如何解决       签名验证
+//app.use(cors());
 
 //配置模板引擎
 render(app, {
