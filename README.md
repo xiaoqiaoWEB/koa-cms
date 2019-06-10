@@ -29,6 +29,31 @@
   - 第三方中间件
   - 如果我的 get、post 回调函数中，没有 next 参数，那么就匹配上第一个路由，就不会往下匹配了。如果想往下匹配的话，那么需要写 next()
 
+## ejs 模板
+  - koa-views
+  - ejs
+    - Ejs 引入模板  <%- include header.ejs %>
+    - Ejs 绑定数据 <%=h%>
+    - Ejs 绑定 html 数据 <%-h%>
+    - Ejs 模板判断语句 <% if(true){ <div><%} else{ %<div><%} %>
+    - Ejs 模板中循环数据 <%for(var i=0;i<list.length;i++) { %><li><%=list[i] %></li><%}%>
+
+## koa-bodyparser
+  > ctx.request.body 获取 post 提交的数据
+
+## koa-static 静态资源中间件
+  - npm install --save koa-static
+  - app.use(static(path.join( __dirname, 'public')))
+
+## art-template 模板引擎
+  > http://aui.github.io/art-template/zh-cn/docs/
+  - npm install --save art-template
+  - npm install --save koa-art-template
+
+## cookie
+  
+
+
 
 
 
