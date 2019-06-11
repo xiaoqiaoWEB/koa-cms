@@ -1,24 +1,24 @@
-# 安装
-# 启动
+## 安装
+## 启动
   - mongod --dbpath (url)
   - mongo 启动本地数据库
 
-# 远程连接数据库  
+## 远程连接数据库  
   - mongo：127.0.0.1:27017
 
-# 查看有哪些数据库
+## 查看有哪些数据库
   - show dbs
 
-# 进入 或者创建 admin 数据库
+## 进入 或者创建 admin 数据库
   - use admin 
 
-# 创建一个 user 得表 并且插入一条数据 或者 插入一条数据
+## 创建一个 user 得表 并且插入一条数据 或者 插入一条数据
  - db.user.insert({"name": "qiao"})
 
-# 查看 数据库中 有哪些 表 
+## 查看 数据库中 有哪些 表 
   - show collections
 
-# 查看 admin 表中 的 数据
+## 查看 admin 表中 的 数据
   - db.admin.find() 
 
   - name='xiao' && age = 18
@@ -60,24 +60,44 @@
     - db.admin.find().count()
   
   
-# 删除 集合admin
+## 删除 集合admin
   - db.admin.drop()
 
-# 删除当前数据库
+## 删除当前数据库
   - db.dropDatabase()
 
-# 修改数据
-  - db.admin.update({"name": "xiaoqiao"},{$set: {"name": "XIAO"}})
+## 修改数据
+  - 查找名字叫做xiaoqiao的，把年龄更改为 16 岁：
+    - db.admin.update({"name": "xiaoqiao"},{$set: {"age": "16"}})
+    -  注意 完整替换，不出现$set 关键字了：
+      - db.student.update({"name":"小明"},{"name":"大明","age":16});
 
-# 删除数据
-db.admin.remove({"name": "xiaoqiao"})
+    
 
-  db.user.ensureIndex({"username":1})
+## 删除数据
+    - db.admin.remove({"name": "xiaoqiao"})
+    - 只删除一条
+      - db.restaurants.remove( { "borough": "Queens" }, { justOne: true } )
 
-  db.user.getIndexes()
+## 索引
+  - 创建
+    - db.user.ensureIndex({"username":1})
+  
+  - 获取当前集合的索引：
+    - db.user.getIndexs()
 
-  db.user.dropIndex({"username":1})
+  - 删除索引
+    - db.user.dropIndex({'name': 1})
 
-  db.user.ensureIndex({"username":1, "age":-1}) ---->数字 1 表示 username 键的索引按升序存储，-1 表示 age 键的索引按照降序方式存储
+  - 复合索引
+    - db.user.ensureIndex({'name': 1, 'age': -1})
+    > 数字 1 表示 username 键的索引按升序存储，-1 表示 age 键的索引按照降序方式存储。
 
-  db.user.ensureIndex({"userid":1},{"unique":true })
+  - 唯一索引
+    - db.user.ensureIndex({"userid":1},{"unique":true})
+    > 如果再次插入 userid 重复的文档时，MongoDB 将报错
+
+## 使用 explain
+  - db.tablename.find().explain( "executionStats" )
+  > 查询具体的执行时间
+  
