@@ -8,7 +8,7 @@ const app = new Koa()
 const DB = require('./mongo/db')
 
 router.get('/', async (ctx) => {
-  let res = await DB.find('user',{'name': 'admin'});
+  let res = await DB.find('user',{'name': 'adminy'});
   ctx.body = res;
 })
 

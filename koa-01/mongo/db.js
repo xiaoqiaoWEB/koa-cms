@@ -5,6 +5,7 @@
 
 const MongoDb = require('mongodb')
 const MongoClient = MongoDb.MongoClient
+const ObjectID = MongoDb.ObjectID;
 
 const Config = require('./config')
 
