@@ -1,3 +1,5 @@
 .DS_Store
-node_modules/
+node-express/node_modules/
+koa-lianxi/node_modules/
+lianxi-cms/node_modules/
 

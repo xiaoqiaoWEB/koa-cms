@@ -1,23 +1,19 @@
 {
-  "name": "koa-lx",
+  "name": "koa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaoqiaoWEB/koa-cms.git"
+  },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "art-template": "^4.13.2",
-    "ejs": "^2.6.1",
-    "koa": "^2.7.0",
-    "koa-art-template": "^1.1.1",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0",
-    "koa-static": "^5.0.0",
-    "koa-views": "^6.2.0",
-    "mongodb": "^3.2.7"
-  }
+  "bugs": {
+    "url": "https://github.com/xiaoqiaoWEB/koa-cms/issues"
+  },
+  "homepage": "https://github.com/xiaoqiaoWEB/koa-cms#readme"
 }
