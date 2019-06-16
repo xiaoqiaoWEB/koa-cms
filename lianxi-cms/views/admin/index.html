@@ -1,7 +1,16 @@
 ﻿{{include 'admin/public/header.html'}}
 
+
+</head>
+
 	<body>
-	{{include 'admin/public/header_nav.html'}}
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			{{include 'admin/public/nav_top.html'}}
+		</div>
 
 		<div class="main-container" id="main-container">
 			<script type="text/javascript">
@@ -12,8 +21,10 @@
 				<a class="menu-toggler" id="menu-toggler" href="#">
 					<span class="menu-text"></span>
 				</a>
-				<!--引入Nav页面-->
-				{{include 'admin/public/nav.html'}}
+
+				<!--左侧导航-->
+
+				{{include 'admin/public/nav_left.html'}}
 
 				<div class="main-content">
 					<div class="breadcrumbs" id="breadcrumbs">
@@ -297,6 +308,9 @@
 			</a>
 		</div><!-- /.main-container -->
 
+		{{include 'admin/public/footer.html'}}
 
-<!--引入底部页面-->
-{{include 'admin/public/footer.html'}}
+
+</body>
+</html>
+
