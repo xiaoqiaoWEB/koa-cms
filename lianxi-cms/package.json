@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node app.js"
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,5 +22,8 @@
     "mongodb": "^3.0.4",
     "silly-datetime": "^0.1.2",
     "svg-captcha": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

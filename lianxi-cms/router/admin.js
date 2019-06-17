@@ -2,6 +2,7 @@ const router = require('koa-router')()
 const login = require('./admin/login')
 const user = require('./admin/user')
 const adminIndex = require('./admin/index')
+const classification = require('./admin/classification')
 const url = require('url')
 
 router.use(async (ctx, next) => {
@@ -33,5 +34,6 @@ router.get('/', async (ctx) => {
 router.use(adminIndex)
 router.use('/login', login)
 router.use('/user', user)
+router.use('/classification', classification)
 
 module.exports = router.routes();
