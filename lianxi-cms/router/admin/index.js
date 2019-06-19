@@ -36,4 +36,14 @@ router.get('/changeStatus', async (ctx) => {
   ctx.body={"message":'更新成功',"success":true};
 })
 
+router.get('/remove', async (ctx) => {
+  try {
+    let {db, id} = ctx.query;
+    let result = await DB.remove(db, {'_id': DB.getObjectId(id)})
+    ctx.redirect(ctx.state.G.prevPage);
+  } catch (err) {
+    ctx.redirect(ctx.state.G.prevPage);
+  } 
+})
+
 module.exports=router.routes();

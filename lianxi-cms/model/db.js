@@ -39,10 +39,38 @@ class Db {
     })
   }
 
-  find (collectionName, json) {
+  find (collectionName, json1, json2, json3) {
+    let attr = {};
+    let slipNum= 0;
+    let pageSize = 0;
+    let page = 1
+
+    let len = arguments.length;
+    switch (len) {
+      case 2:
+        attr = {}
+        slipNum= 0
+        pageSize = 0
+        break;
+      case 3:
+        attr = json2
+        slipNum= 0
+        pageSize = 0
+        break;
+      case 4:
+        attr = json2
+        pageSize = json3.pageSize||20;
+        page = json3.page || 1;
+        slipNum=(page-1)*pageSize;
+        break
+      default:
+        break;
+    }
+
     return new Promise((resolve, reject) => {
       this.content().then((db) => {
-        let result = db.collection(collectionName).find(json);
+        //let result = db.collection(collectionName).find(json);
+        let result = db.collection(collectionName).find(json1, {fields: attr}).skip(slipNum).limit(pageSize)
         result.toArray((err,docs) => {
           if(err) {
             reject(err)
@@ -52,6 +80,17 @@ class Db {
           }
         })
       }) 
+    })
+  }
+
+  count(collectionName, json) {
+    return new Promise((resolve, reject) => {
+      this.content().then((db) => {
+        let result = db.collection(collectionName).count(json);
+        result.then((count) => {
+          resolve(count)
+        })
+      })
     })
   }
 

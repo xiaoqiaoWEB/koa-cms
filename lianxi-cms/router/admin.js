@@ -13,7 +13,8 @@ router.use(async (ctx, next) => {
 
   ctx.state.G = {
     userinfo: ctx.session.userinfo,
-    url: splitUrl
+    url: splitUrl,
+    prevPage:ctx.request.headers['referer'] 
   }
 
   if(ctx.session.userinfo){

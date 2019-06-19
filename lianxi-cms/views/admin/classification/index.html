@@ -85,9 +85,9 @@
 
 										<td class="center">
 											{{if $value.status==1}}
-												<img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'admin','status','{{@$value._id}}')" />
+												<img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'classification','status','{{@$value._id}}')" />
 											{{else}}
-												<img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'admin','status','{{@$value._id}}')" />
+												<img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'classification','status','{{@$value._id}}')" />
 											{{/if}}
 										</td>
 
@@ -95,17 +95,18 @@
 											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
 
 
-												<a href="{{__HOST__}}/admin/articlecate/edit?id={{@$value._id}}">
+												<a href="{{__HOST__}}/admin/classification/edit?id={{@$value._id}}">
 
 													<button class="btn btn-xs btn-info">
 														<i class="icon-edit bigger-120"></i>
 													</button>
 												</a>
 
-												<a href="{{__HOST__}}/admin/articlecate/delete?id={{@$value._id}}">
+												<a class="delete" href="{{__HOST__}}/admin/remove?db=classification&id={{@$value._id}}">
 
 
-													<button class="btn btn-xs btn-danger">
+
+												<button class="btn btn-xs btn-danger">
 														<i class="icon-trash bigger-120"></i>
 													</button>
 
@@ -128,9 +129,9 @@
 
 												<td class="center" >
 													{{if $value.status==1}}
-													<img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'admin','status','{{@$value._id}}')" />
+													<img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'classification','status','{{@$value._id}}')" />
 													{{else}}
-													<img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'admin','status','{{@$value._id}}')" />
+													<img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'classification','status','{{@$value._id}}')" />
 													{{/if}}
 												</td>
 
@@ -138,14 +139,14 @@
 													<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
 
 
-														<a href="{{__HOST__}}/admin/articlecate/edit?id={{@$value._id}}">
+														<a href="{{__HOST__}}/admin/classification/edit?id={{@$value._id}}">
 
 															<button class="btn btn-xs btn-info">
 																<i class="icon-edit bigger-120"></i>
 															</button>
 														</a>
 
-														<a href="{{__HOST__}}/admin/articlecate/delete?id={{@$value._id}}">
+														<a class="delete"  href="{{__HOST__}}/admin/remove?db=classification&id={{@$value._id}}">
 
 
 															<button class="btn btn-xs btn-danger">
@@ -166,7 +167,7 @@
 								</tbody>
 							</table>
 						</div>
-
+						<div id="page" class="pagination"></div>
 					</div>
 				</div><!-- /.main-content -->
 			
@@ -180,6 +181,21 @@
 
 
 	{{include 'admin/public/footer.html'}}
+	<script src="{{__HOST__}}/admin/jqPaginator.js"></script>
+	<script>
+		$('#page').jqPaginator({
+			totalPages: {{totalPages}},
+			visiblePages: 8,
+			currentPage: {{page}},
+			onPageChange: function (num, type) {
+				if(type=='change'){
+					location.href="{{__HOST__}}/admin/classification?page="+num;
+				}
+			}
+		});
+
+	</script>
+
 
 		<script type="text/javascript">
 			jQuery(function($) {
