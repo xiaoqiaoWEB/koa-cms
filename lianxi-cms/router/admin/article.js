@@ -22,6 +22,9 @@ router.get('/', async (ctx) => {
   let result = await DB.find('article', {}, {}, {
     page,
     pageSize,
+    sortJson: {
+      'add_time': -1
+    }
   })
 
   await ctx.render('admin/article/index.html', {
@@ -57,11 +60,12 @@ router.post('/doAdd', upload.single('img_url'), async (ctx) => {
   let keywords=ctx.req.body.keywords;
   let description=ctx.req.body.description || '';
   let content=ctx.req.body.content ||'';
-  let img_url=ctx.req.file? ctx.req.file.path :'';
+  let img_url=ctx.req.file? ctx.req.file.path.substr(7) :'';
+  let add_time = tool.setTime();
 
   //属性的简写
   let json={
-      pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content,img_url
+      pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content,img_url, add_time
   }
   var result=DB.insert('article',json);
   ctx.redirect(ctx.state.__HOST__+'/admin/article');
@@ -81,6 +85,40 @@ router.get('/edit', async (ctx) => {
     list: detail[0],
     prevPage :ctx.state.G.prevPage
   })
+})
+
+router.post('/doEdit', upload.single('img_url'), async (ctx) => {
+  let prevPage = ctx.req.body.prevPage || '';  /*上一页的地址*/
+  let id=ctx.req.body.id;
+  let pid=ctx.req.body.pid;
+  let catename=ctx.req.body.catename.trim();
+  let title=ctx.req.body.title.trim();
+  let author=ctx.req.body.author.trim();
+  //let pic=ctx.req.body.author;
+  let status=ctx.req.body.status;
+  let is_best=ctx.req.body.is_best;
+  let is_hot=ctx.req.body.is_hot;
+  let is_new=ctx.req.body.is_new;
+  let keywords=ctx.req.body.keywords;
+  let description=ctx.req.body.description || '';
+  let content=ctx.req.body.content ||'';
+  let img_url=ctx.req.file? ctx.req.file.path.substr(7) :'';
+  if(img_url){
+    var json={
+      pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content,img_url
+    }
+  }else{
+    var json={
+      pid,catename,title,author,status,is_best,is_hot,is_new,keywords,description,content
+    }
+  }
+  DB.updata('article',{"_id":DB.getObjectId(id)},json);
+   //跳转
+  if(prevPage){
+    ctx.redirect(prevPage);
+  }else{
+    ctx.redirect(ctx.state.__HOST__+'/admin/article');
+  }
 })
 
 module.exports = router.routes();

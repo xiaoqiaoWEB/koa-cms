@@ -8,14 +8,12 @@ router.get('/', async (ctx) => {
   let pageSize = 5;
   // 查询 总量
   let count = await DB.count('classification', {})
-  let result = await DB.find('classification', {}, {}, {page, pageSize});
+  let result = await DB.find('classification', {}, {}, {});
 
   let list = tool.dataArray(result)
  
   await ctx.render('admin/classification/index.html', {
-    list: list,
-    page: page,
-    totalPages: Math.ceil(count/pageSize)
+    list: list
   })
 })
 

@@ -125,7 +125,7 @@
 
 
 
-        <li>
+        <li {{if G.url[1] == 'focus'}} class="active open" {{/if}}>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-picture"></i>
                 <span class="menu-text"> 轮播图管理 </span>
@@ -134,15 +134,15 @@
             </a>
 
             <ul class="submenu">
-                <li>
-                    <a href="#">
+                <li {{if !G.url[2]}} class="active" {{/if}}>
+                    <a href="{{__ROOT_}}/admin/focus">
                         <i class="icon-double-angle-right"></i>
                         轮播图列表
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
+                <li {{if G.url[2]=="add"}} class="active" {{/if}}>
+                    <a href="{{__ROOT_}}/admin/focus/add">
                         <i class="icon-double-angle-right"></i>
                         增加轮播图
                     </a>
@@ -152,7 +152,7 @@
             </ul>
         </li>
 
-        <li>
+        <li {{if G.url[1] == 'link'}} class="active open" {{/if}}>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-paperclip"></i>
 
@@ -165,15 +165,15 @@
             </a>
 
             <ul class="submenu">
-                <li>
-                    <a href="#">
+                <li {{if !G.url[2]}} class="active" {{/if}}>
+                    <a href="{{__ROOT_}}/admin/link">
                         <i class="icon-double-angle-right"></i>
                         友情链接列表
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
+                <li {{if !G.url[2] == 'add'}} class="active" {{/if}}>
+                    <a href="{{__ROOT_}}/admin/link/add">
                         <i class="icon-double-angle-right"></i>
                         增加友情链接
                     </a>
@@ -183,7 +183,7 @@
 
         </li>
 
-        <li>
+        <li {{if G.url[1] == 'nav'}} class="active open" {{/if}}>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-list-alt"></i>
 
@@ -196,14 +196,14 @@
             </a>
 
             <ul class="submenu">
-                <li>
-                    <a href="#">
+                <li {{if !G.url[2] == 'add'}} class="active" {{/if}}>
+                    <a href="{{__ROOT_}}/admin/nav/add">
                         <i class="icon-double-angle-right"></i>
                         增加导航
                     </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li {{if !G.url[2]}} class="active" {{/if}}>
+                    <a href="{{__ROOT_}}/admin/nav">
                         <i class="icon-double-angle-right"></i>
                         导航列表
                     </a>
@@ -212,16 +212,12 @@
 
 
         </li>
-
-
-
-        <li>
-            <a href="index.html">
+        <li {{if G.url[1]=="setting"}} class="active open" {{/if}}>
+            <a href="{{__ROOT_}}/admin/setting">
                 <i class="icon-cog"></i>
                 <span class="menu-text"> 系统设置 </span>
             </a>
         </li>
-
     </ul><!-- /.nav-list -->
 
     <div class="sidebar-collapse" id="sidebar-collapse">

@@ -5,7 +5,6 @@
 			<script type="text/javascript">
 				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
 			</script>
-
 			{{include 'admin/public/nav_top.html'}}
 		</div>
 
@@ -51,7 +50,7 @@
 
 						<div class="page-header">
 							<h1>
-								轮播图列表
+								友情链接列表
 							</h1>
 						</div><!-- /.page-header -->
 
@@ -93,15 +92,15 @@
 										</td>
 
 										<td>
-											<input type="text" value="{{$value.sort || 0}}" class="sort_input" onblur="app.changeSort(this,'focus','{{@$value._id}}')"/>
+											<input type="text" value="{{$value.sort || 0}}" class="sort_input" onblur="app.changeSort(this,'link','{{@$value._id}}')"/>
 										</td>
 
 
 										<td class="hidden-480">
 											{{if $value.status==1}}
-												<img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'focus','status','{{@$value._id}}')" />
+												<img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'link','status','{{@$value._id}}')" />
 											{{else}}
-												<img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'focus','status','{{@$value._id}}')" />
+												<img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'link','status','{{@$value._id}}')" />
 											{{/if}}
 										</td>
 
@@ -109,7 +108,7 @@
 											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
 
 
-												<a href="{{__HOST__}}/admin/focus/edit?id={{@$value._id}}">
+												<a href="{{__HOST__}}/admin/link/edit?id={{@$value._id}}">
 
 													<button class="btn btn-xs btn-info">
 														<i class="icon-edit bigger-120"></i>
@@ -117,7 +116,7 @@
 												</a>
 
 
-											  	<a class="delete" href="{{__HOST__}}/admin/remove?collection=focus&id={{@$value._id}}">
+											  	<a class="delete" href="{{__HOST__}}/admin/remove?collection=link&id={{@$value._id}}">
 
 
 
@@ -164,7 +163,7 @@
 				currentPage: {{page}},
 				onPageChange: function (num, type) {
 					if(type=='change'){
-						location.href="{{__HOST__}}/admin/focus?page="+num;
+						location.href="{{__HOST__}}/admin/link?page="+num;
 					}
 				}
 			});

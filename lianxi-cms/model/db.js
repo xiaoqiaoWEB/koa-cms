@@ -62,6 +62,13 @@ class Db {
         pageSize = json3.pageSize||20;
         page = json3.page || 1;
         slipNum=(page-1)*pageSize;
+
+        if(json3.sortJson) {
+          var sortJson=json3.sortJson;
+        } else {
+          var sortJson={}
+        }
+
         break
       default:
         break;
@@ -70,7 +77,7 @@ class Db {
     return new Promise((resolve, reject) => {
       this.content().then((db) => {
         //let result = db.collection(collectionName).find(json);
-        let result = db.collection(collectionName).find(json1, {fields: attr}).skip(slipNum).limit(pageSize)
+        let result = db.collection(collectionName).find(json1, {fields: attr}).skip(slipNum).limit(pageSize).sort(sortJson)
         result.toArray((err,docs) => {
           if(err) {
             reject(err)

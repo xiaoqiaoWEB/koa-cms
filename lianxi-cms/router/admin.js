@@ -4,6 +4,10 @@ const user = require('./admin/user')
 const adminIndex = require('./admin/index')
 const classification = require('./admin/classification')
 const article = require('./admin/article')
+const focus = require('./admin/focus')
+const link = require('./admin/link')
+const nav = require('./admin/nav')
+const setting = require('./admin/setting')
 const url = require('url')
 const ueditor = require('koa2-ueditor')
 
@@ -39,6 +43,11 @@ router.use('/login', login)
 router.use('/user', user)
 router.use('/classification', classification)
 router.use('/article', article)
+router.use('/focus', focus)
+router.use('/link', link)
+router.use('/nav', nav)
+router.use('/setting', setting)
+
 
 //注意上传图片的路由   ueditor.config.js配置图片post的地址
 router.all('/detailUpload', ueditor(['public', {

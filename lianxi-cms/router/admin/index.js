@@ -46,4 +46,17 @@ router.get('/remove', async (ctx) => {
   } 
 })
 
+router.get('/changeSort', async (ctx) => {
+  let {db, id, sortValue} = ctx.query;
+  var json={
+    sort:sortValue
+  }
+  let updateResult=await DB.updata(db,{"_id":DB.getObjectId(id)},json);
+  if(updateResult){
+    ctx.body={"message":'更新成功',"success":true};
+  }else{
+    ctx.body={"message":"更新失败","success":false}
+  }
+})
+
 module.exports=router.routes();

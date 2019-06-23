@@ -13,5 +13,15 @@ var app = {
         }
       }
     )
+  },
+  changeSort(el, db, id) {
+    var sortValue=el.value;
+    $.get(
+      '/admin/changeSort',
+      {db:db, id:id, sortValue: sortValue},
+      function (data) {
+        console.log(data)
+      }
+    )
   }
 }

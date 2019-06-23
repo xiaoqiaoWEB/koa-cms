@@ -4,6 +4,9 @@ const tool = {
   md5 (str) {
     return md5( md5(str) ) 
   },
+  setTime () {
+    return new Date();
+  },
   dataArray (data) {
     let arr = data.filter((item) => {
       return item.pid == '0'
