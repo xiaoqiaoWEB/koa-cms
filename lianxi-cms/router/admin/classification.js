@@ -11,8 +11,7 @@ router.get('/', async (ctx) => {
   let result = await DB.find('classification', {}, {}, {page, pageSize});
 
   let list = tool.dataArray(result)
-  console.log(list)
-
+ 
   await ctx.render('admin/classification/index.html', {
     list: list,
     page: page,
