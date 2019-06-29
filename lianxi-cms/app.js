@@ -46,10 +46,12 @@ app.use(static(__dirname + '/public'));
 // model
 const api = require('./router/api')
 const admin = require('./router/admin.js')
+const index = require('./router/index')
 
 // router
 router.use('/api', api)
 router.use('/admin', admin)
+router.use(index)
 
 app.use(router.routes());
 app.use(router.allowedMethods());
