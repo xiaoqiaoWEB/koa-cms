@@ -140,6 +140,36 @@
   - 4.备份恢复角色：backup、restore； 
   - 5.所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、 dbAdminAnyDatabase 
   - 6.超级用户角色：root
+
+## MongoDB 的高级查询 aggregate 聚合管道
+  > 使用聚合管道可以对集合中的文档进行变换和组合。
+  > 实际项目：表关联查询、数据的统计。
+  > MongoDB中使用db.COLLECTION_NAME.aggregate([{<stage>},...])方法来构建和使用聚合管道
+
+  ## 管道操作符 Description
+  - $project 增加、删除、重命名字段
+    > db.order.aggregate([ { $project:{ trade_no:1, all_price:1 } } ])
+
+  - $match 条件匹配。只满足条件的文档才能进入下 一阶段
+    > db.order.aggregate([ { $project:{ trade_no:1, all_price:1 } }, { $match:{"all_price":{$gte:90}} } ])
+
+  - $limit 限制结果的数量
+    > db.order.aggregate([ { $project:{ trade_no:1, all_price:1 } }, { $match:{"all_price":{$gte:90}} }, { $sort:{"all_price":-1} }, { $limit:1 } ])
+    
+  - $skip 跳过文档的数量
+    > db.order.aggregate([ { $project:{ trade_no:1, all_price:1 } }, { $match:{"all_price":{$gte:90}} }, { $sort:{"all_price":-1} }
+
+  - $sort 条件排序
+    > db.order.aggregate([ { $project:{ trade_no:1, all_price:1 } }, { $match:{"all_price":{$gte:90}} }, { $sort:{"all_price":-1} } ])
+
+  - $group 条件组合结果 统计
+    > db.order_item.aggregate( [ { $group: {_id: "$order_id", total: {$sum: "$num"}} } ])
+
+  - $lookup 用以引入其它集合的数据（表关联查询）
+    > db.order.aggregate([ { $lookup: { from: "order_item", localField: "order_id", foreignField: "order_id", as: "items" } } ])
+
+
+## mongose
   
 
 
