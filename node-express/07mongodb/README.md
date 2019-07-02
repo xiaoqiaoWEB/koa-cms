@@ -101,3 +101,45 @@
   - db.tablename.find().explain( "executionStats" )
   > 查询具体的执行时间
   
+
+## Mongodb 账户权限配置
+
+### 创建一个超级管理员
+  - 01创建超级管理用户
+    > use admin db.createUser({ user:'admin', pwd:'123456', roles:[{role:'root',db:'admin'}] })
+  
+  - 02 第二步修改 Mongodb 数据库配置文件 --  mongod.cfg
+    > security: authorization: enabled
+
+  - 03 第三步重启 mongodb 服务
+
+  -04 用超级管理员账户连接数据库
+    > mongo admin -u 用户名 -p 密码
+    > mongo 192.168.1.200:27017/test -u user -p password
+
+### 给 cms 数据库创建一个用户
+  use cms db.createUser( { user: "cmsadmin", pwd: "123456", roles: [ { role: "dbOwner", db: "cms" } ] } )
+
+## Mongodb 账户权限配置中常用的命令
+  - show users; 
+    > #查看当前库下的用户
+
+  - db.dropUser("eggadmin") 
+    > #删除用户
+
+  - db.updateUser( "admin",{pwd:"password"}); 
+    > #修改用户密码
+  
+  - db.auth("admin","password"); 
+    > #密码认证
+  
+## Mongodb 数据库角色
+  - 1.数据库用户角色：read、readWrite; 
+  - 2.数据库管理角色：dbAdmin、dbOwner、userAdmin； 
+  - 3.集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager； 
+  - 4.备份恢复角色：backup、restore； 
+  - 5.所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、 dbAdminAnyDatabase 
+  - 6.超级用户角色：root
+  
+
+
