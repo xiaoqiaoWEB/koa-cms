@@ -1,4 +1,5 @@
 .DS_Store
 koa-lianxi/node_modules/
 lianxi-cms/node_modules/
+node-express/mongose/node_modules/
 
