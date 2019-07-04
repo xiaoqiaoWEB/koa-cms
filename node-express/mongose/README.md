@@ -108,8 +108,8 @@ min: 用于 Number 类型数据，最小值
 enum:枚举类型，要求数据必须满足枚举值 
 enum: ['0', '1', '2'] 
 match:增加的数据必须符合 match（正则）的规则 
-maxlength：最大值 
-minlength：最小值
+maxlength：最大长度
+minlength：最小长度
 
 var UserSchema = new mongoose.Schema(
   { 
